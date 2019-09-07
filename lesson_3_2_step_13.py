@@ -1,16 +1,24 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class TestWelcome(unittest.TestCase):
+    wd = None
+
+    def setUp(self):
+        self.wd = webdriver.Chrome()
+
+    def tearDown(self):
+        self.wd.close()
 
     def test_for_registration1(self):
-        wd = webdriver.Chrome()
+        wd = self.wd
         link = "http://suninjuly.github.io/registration1.html"
         wd.get(link)
 
@@ -42,10 +50,9 @@ class TestWelcome(unittest.TestCase):
         self.assertEqual(
             "Congratulations! You have successfully registered!",
             welcome_text_elt)
-        wd.quit()
 
     def test_for_registration2(self):
-        wd = webdriver.Chrome()
+        wd = self.wd
         link = "http://suninjuly.github.io/registration2.html"
         wd.get(link)
 
@@ -73,7 +80,6 @@ class TestWelcome(unittest.TestCase):
         self.assertEqual(
             "You have successfully registered!",
             welcome_text_elt)
-        wd.quit()
 
 
 if __name__ == "__main__":
